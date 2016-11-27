@@ -101,4 +101,10 @@ public class AddMore extends AppCompatActivity {
         }
 
     }
+
+    //open Recipe Created Activity on Save Button click
+    public void openRecipeCreated (View view) {
+        Intent intentRecipeCreated = new Intent(this, RecipeCreated.class) ;
+        startActivity(intentRecipeCreated);
+    }
 }

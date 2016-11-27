@@ -53,17 +53,16 @@
             tools:text="Back to Home"
             android:layout_height="0dp"
             android:layout_weight="17"
-            android:onClick="openHome" />
+            />
 
         <Button
             android:id="@+id/btnRecipe"
             android:textSize="18sp"
-            tools:text="Create Another Recipe"
+            tools:text="Back to Recipe"
             android:layout_width="698dp"
             android:layout_height="0dp"
             android:layout_weight="17"
-            android:text="Create Another Recipe"
-            android:onClick="openAdd" />
+            android:text="Back to Recipe" />
     </LinearLayout>
 
 </RelativeLayout>
