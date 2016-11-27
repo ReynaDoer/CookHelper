@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class AddRecipe extends AppCompatActivity {
 
@@ -23,4 +24,8 @@ public class AddRecipe extends AppCompatActivity {
         startActivity(createdScreenIntent);
     }
 
+    public void addIngredient (View view){
+        EditText ingredient = (EditText)findViewById(R.id.addIngredients);
+        ingredient.setText("");
+    }
 }
