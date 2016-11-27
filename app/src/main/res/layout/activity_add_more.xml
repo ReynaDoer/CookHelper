@@ -99,7 +99,6 @@
                 android:ems="10"
                 android:id="@+id/editPortionSize"
                 android:layout_weight="1"
-                android:background="@android:drawable/editbox_background_normal"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -126,7 +125,6 @@
                 android:ems="10"
                 android:id="@+id/editCalories"
                 android:layout_weight="1"
-                android:background="@android:drawable/editbox_background_normal"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -153,12 +151,13 @@
         <Space
             android:layout_width="match_parent"
             android:id="@+id/SpaceExtras"
-            android:layout_height="60dp" />
+            android:layout_height="50dp" />
 
         <Button
-            android:text="Done"
+            android:text="Save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonExtrasDone" />
+            android:id="@+id/buttonExtrasSave"
+            android:onClick="openRecipeCreated"/>
     </LinearLayout>
 </RelativeLayout>

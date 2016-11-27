@@ -17,10 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center">
+        android:layout_alignParentStart="true">
 
 
         <TextView
@@ -29,11 +29,10 @@
             android:text="Recipe Created"
             android:layout_weight="25"
 
-            android:textSize="36sp"
             android:gravity="center"
             android:id="@+id/textTitle"
             android:adjustViewBounds="true"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <ImageView
             app:srcCompat="@drawable/checkmarkclipart"
@@ -47,22 +46,21 @@
 
         <Button
             android:text="Back to Home"
-            android:layout_width="698dp"
+            android:layout_width="match_parent"
             android:id="@+id/btnHome"
-            android:textSize="18sp"
             tools:text="Back to Home"
             android:layout_height="0dp"
             android:layout_weight="17"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <Button
             android:id="@+id/btnRecipe"
-            android:textSize="18sp"
             tools:text="Back to Recipe"
-            android:layout_width="698dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
             android:layout_weight="17"
-            android:text="Back to Recipe" />
+            android:text="Back to Recipe"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:layout_height="0dp" />
     </LinearLayout>
 
 </RelativeLayout>

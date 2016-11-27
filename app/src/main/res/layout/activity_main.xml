@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Help"
                 android:layout_weight="1"
-                android:onClick="openHelpScreen"/>
+                android:onClick="openHelpScreen"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
             <Space
                 android:layout_height="wrap_content"
@@ -42,19 +43,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Add"
-                android:onClick="btnAddClick" />
+                android:onClick="btnAddClick"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="18dp" />
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             app:srcCompat="@drawable/icon"
             android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -71,15 +73,6 @@
             android:layout_gravity="center_horizontal"
             android:hint="(Search a Recipe)" />
 
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
         <TextView
             android:text="Select a Category"
             android:layout_width="259dp"
@@ -87,7 +80,8 @@
             android:id="@+id/textView"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="20sp" />
+            android:textSize="18sp"
+            android:paddingTop="14dp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -98,12 +92,8 @@
             android:layout_gravity="center"
             android:spinnerMode="dialog"
             android:paddingRight="0dp"
-            android:paddingLeft="150dp" />
-
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar4" />
+            android:paddingLeft="150dp"
+            android:background="@android:drawable/editbox_background_normal" />
 
         <TextView
             android:text="Select a Type"
@@ -111,7 +101,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/Type"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="18sp"
+            android:paddingTop="14dp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -119,12 +110,8 @@
             android:id="@+id/Types"
             android:entries="@array/types"
             android:spinnerMode="dialog"
-            android:paddingLeft="150dp" />
-
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBar5" />
+            android:paddingLeft="150dp"
+            android:background="@android:drawable/editbox_background_normal" />
 
         <Space
             android:layout_width="match_parent"
