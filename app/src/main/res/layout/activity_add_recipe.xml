@@ -26,11 +26,11 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:layout_height="35dp"
                 app:srcCompat="@drawable/icon"
                 android:id="@+id/icon"
                 android:layout_width="match_parent"
-                android:layout_weight="0.13"
-                android:layout_height="60dp" />
+                android:layout_weight="0.13" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/title"
                     android:text="Name of Recipe"
-                    android:textSize="18sp"
+                    android:textSize="25sp"
                     android:textAlignment="center" />
 
                 <EditText
@@ -63,9 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/AddIngredients"
-                    android:textSize="18sp"
-                    android:textAlignment="center"
-                    android:paddingTop="14dp" />
+                    android:textSize="25sp"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -83,8 +82,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="14dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -93,7 +91,7 @@
                         android:layout_row="0"
                         android:layout_column="1"
                         android:text="Category"
-                        android:textSize="18sp"
+                        android:textSize="25sp"
                         android:textAlignment="center"
                         android:layout_weight="1" />
 
@@ -103,8 +101,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:entries="@array/categories"
-                        android:spinnerMode="dialog"
-                        android:background="@android:drawable/editbox_background_normal" />/>
+                        android:spinnerMode="dialog"/>/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -117,7 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/titleType"
-                        android:textSize="18sp"
+                        android:textSize="25sp"
                         android:textAlignment="center"
                         android:layout_weight="1"
                         android:entries="@array/types"
@@ -129,8 +126,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:entries="@array/types"
-                        android:spinnerMode="dialog"
-                        android:background="@android:drawable/editbox_background_normal" />
+                        android:spinnerMode="dialog"/>
                 </LinearLayout>
 
                 <TextView
@@ -138,9 +134,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/titleAddInstr"
-                    android:textSize="18sp"
-                    android:textAlignment="center"
-                    android:paddingTop="14dp" />
+                    android:textSize="25sp"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -161,7 +156,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btnDone"
                         android:layout_weight="1"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                        android:textSize="20sp"
+                        android:onClick="openCreated" />
 
                     <Button
                         android:text="More"
@@ -169,8 +165,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/buttonAddMore"
                         android:layout_weight="1"
-                        android:onClick="openAddMore"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                        android:textSize="20sp"
+                        android:onClick="openAddMore"/>
                 </LinearLayout>
 
             </LinearLayout>
