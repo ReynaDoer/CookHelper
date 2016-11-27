@@ -17,4 +17,10 @@ public class AddRecipe extends AppCompatActivity {
         Intent addMoreScreenIntent = new Intent(this, AddMore.class);
         startActivity(addMoreScreenIntent);
     }
+
+    public void openCreated (View view) {
+        Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
+        startActivity(createdScreenIntent);
+    }
+
 }
