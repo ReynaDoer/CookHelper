@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_more"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cookhelper.cookhelper.AddMore">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/AddMoreMainLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:text="Extras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textExtras"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:paddingBottom="14dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:id="@+id/LayoutAddPhoto"
+            android:layout_height="60dp">
+
+            <TextView
+                android:text="Add Photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textAddPhoto"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imgSelect"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_menu_camera" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/LayoutPhotoButtons">
+
+            <Button
+                android:text="Access Camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonCamera"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:onClick="callCamera"/>
+
+            <Button
+                android:text="Use Existing Image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonGallery"
+                android:layout_weight="1"
+                android:onClick="getImageFromGallery"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LayoutPortionSize"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:text="Portion Size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textPortionSize"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/editPortionSize"
+                android:layout_weight="1"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LayoutCalories"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:text="Calories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textCalories"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/editCalories"
+                android:layout_weight="1"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="Notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textNotes"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="18sp"
+            android:paddingBottom="5dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editNotes"
+            android:hint="(any extra information)"
+            android:paddingBottom="10dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_height="80dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:id="@+id/SpaceExtras"
+            android:layout_height="50dp" />
+
+        <Button
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonExtrasSave"
+            android:onClick="openRecipeCreated"/>
+    </LinearLayout>
+</RelativeLayout>
