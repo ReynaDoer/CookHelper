@@ -16,6 +16,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddRecipe"></activity>
+        <activity android:name=".HelpScreen"></activity>
+        <activity android:name=".AddMore"></activity>
+        <activity android:name=".RecipeList"></activity>
+        <activity android:name=".RecipeCreated"></activity>
+
+
+
     </application>
 
 </manifest>
