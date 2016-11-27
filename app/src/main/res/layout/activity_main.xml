@@ -32,9 +32,9 @@
                 android:layout_weight="1" />
 
             <Space
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_width="430dp" />
 
             <Button
                 android:text="Add +"
@@ -75,16 +75,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/seekBar" />
 
-        <EditText
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:text="Select a Category"
             android:layout_width="259dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/CategorySearch"
-            tools:text="(Search a Category)"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:hint="(Search a Category)" />
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="20sp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -102,16 +104,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/seekBar4" />
 
-        <EditText
-            android:layout_width="263dp"
+        <TextView
+            android:text="Select a Type"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/SearchType"
-            tools:text="(Search a Type of Food)"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal"
-            android:hint="(Search a Type of Food)" />
+            android:id="@+id/Type"
+            android:gravity="center"
+            android:textSize="20sp" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -125,6 +124,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/seekBar5" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
 
         <Button
             android:text="Enter"
