@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_help_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cookhelper.cookhelper.HelpScreen">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/LayoutHelpScreenMain">
+
+        <TextView
+            android:text="Help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textHelpTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:paddingBottom="14dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ScrollHelpBody">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/LayoutHelpScrollBody" >
+
+                <TextView
+                    android:text="Cookhelper is your go to app to help you sort your overflowing recipe box. It helps you to organise and search for recipes based on ingredients, category and type of food. "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textHelpIntro"
+                    android:paddingBottom="14dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:text="How to Use"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textHowToUse"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="To open a recipe simply search for a recipe with the search bar (See to Search for a Recipe) and click on the recipe name to select it. To close the recipe once finished with it or to return to the search results click the back button on the phone."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textHowToBody"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:paddingBottom="14dp" />
+
+                <TextView
+                    android:text="To Search for a Recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToSearch"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="On the main page select the search bar and type in your search criteria. Search by ingredients, category or type. Use the keywords AND, OR and NOT to separate search criteria. For example, “Tomatoes AND Olive Oil”. When your search entry is complete select the Search button. To open a recipe simply click the recipe name."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToSearchBody"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:paddingBottom="14dp" />
+
+                <TextView
+                    android:text="To Add a Recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToAdd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="Select the Add button in the top right corner of the main page. Enter a recipe title and details of ingredients, instructions and recipe type and category into the correct labeled boxes. To add additional information, select the Add More button at the bottom of the screen. Add a photo, portion size, calories or any additional notes into the labeled boxes and select Done to add recipe."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToAddBody"
+                    android:paddingBottom="14dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:text="To Delete a Recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToDelete"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="Open the recipe that you wish to delete. Select the Delete button at the bottom of the screen. Select yes on the popup. "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToDeleteBody"
+                    android:paddingBottom="14dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:text="To Edit a Recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToEdit"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:text="Open the button you wish to edit. Select the Edit button at the bottom of the screen. In the new screen that will appear simply alter the displayed information and click done when finished. "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textToEditBody"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>
