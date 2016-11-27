@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">CookHelper</string>
+
+    <string-array name="types">
+        <item>Any</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Appetizers</item>
+        <item>Dessert</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Any</item>
+        <item>American</item>
+        <item>Greek</item>
+        <item>Mexican</item>
+        <item>Asian</item>
+        <item>French</item>
+    </string-array>
+
 </resources>
