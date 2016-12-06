@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -59,18 +60,28 @@ public class AddRecipe extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
-
+                EditText ingredientAmount = (EditText) findViewById(R.id.addIngredientsAmount);
 
                 FoodItem item = realm.createObject(FoodItem.class);
 
-                item.name = ingredient.getText().toString();
-                item.amount = null;
+                if ( ingredient.getText().toString().trim().length() == 0 || ingredientAmount.getText().toString().trim().length() == 0){
+                    Toast.makeText(getApplicationContext(), "PLEASE ENTER AMOUNT AND INGREDIENT",Toast.LENGTH_LONG).show();
+                }
 
-                final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
-                System.out.println(items.toString());
+                else {
+
+                    item.name = ingredient.getText().toString();
+                    item.amount = ingredientAmount.getText().toString();
+
+                    final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
+                    System.out.println(items.toString());
 
 
-                ingredient.setText("");
+                    ingredient.setText("");
+                    ingredientAmount.setText("");
+                    Toast.makeText(getApplicationContext(), "INGREDIENT ADDED", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
