@@ -47,8 +47,11 @@ public class AddRecipe extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
+                EditText ingredientAmount = (EditText) findViewById(R.id.addIngredientsAmount);
                 FoodItem item = new FoodItem(ingredient.getText().toString(), null);
                 ingredient.setText("");
+                ingredientAmount.setText("");
+
             }
         });
 

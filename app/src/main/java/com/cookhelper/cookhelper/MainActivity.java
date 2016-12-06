@@ -20,6 +20,15 @@ public class MainActivity extends AppCompatActivity {
         Intent helpScreenIntent = new Intent(this, HelpScreen.class);
         startActivity(helpScreenIntent);
     }
+
+
+    //open Add Recipe screen on Add+ Button click
+    public void openAddRecipeScreen (View view) {
+        Intent addRecipeIntent = new Intent(this, AddRecipe.class) ;
+        startActivity (addRecipeIntent);
+    }
+
+    
     public void openList(View view){
         Intent startList = new Intent(this , RecipeList.class);
         startActivity(startList);
