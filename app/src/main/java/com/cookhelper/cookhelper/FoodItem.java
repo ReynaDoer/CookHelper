@@ -15,11 +15,20 @@ public class FoodItem extends RealmObject{
 
     }
 
-    public FoodItem(String name, String amount){
-        this.name = name;
-        this.amount = amount;
-        System.out.println(this.name + " created");
+    String getName(){
+        return name;
+    }
 
+    void setName(String n){
+        this.name = n;
+    }
+
+    String getAmount(){
+        return amount;
+    }
+
+    void setAmount(String a){
+        this.amount = a;
     }
 
 }
