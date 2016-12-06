@@ -15,14 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    /*Button btnAdd = (Button)findViewById(R.id.Add);
-
-    btnAdd.setOnClickListener(new View.OnClickListener() {*/
-        public void btnAddClick(View view){
-            Intent startAdd = new Intent(this, AddRecipe.class);
-            startActivity(startAdd);
-        }
     //open help screen on Help Button click
     public void openHelpScreen (View view) {
         Intent helpScreenIntent = new Intent(this, HelpScreen.class);
