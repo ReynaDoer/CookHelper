@@ -43,14 +43,22 @@ public class AddRecipe extends AppCompatActivity {
         buttonClickListener();
     }
 
+    @Override
+    public void onBackPressed(){
+        realm.commitTransaction();
+        realm.close();
+        finish();
+    }
     public void openAddMore(View view) {
         realm.commitTransaction();
+        realm.close();
         Intent addMoreScreenIntent = new Intent(this, AddMore.class);
         startActivity(addMoreScreenIntent);
     }
 
     public void openCreated(View view) {
         realm.commitTransaction();
+        realm.close();
         Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
         startActivity(createdScreenIntent);
     }
