@@ -9,33 +9,37 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
+
+    Realm realm;
+    RealmResults<Recipe> recipies;
+    RealmResults<Recipe> tempList;
+    Recipe tempRecipe;
+    RealmList<FoodItem> tempItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
+
         Realm.init(this);
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
-        Realm.deleteRealm(realmConfiguration); // Clean slate
-        Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default*/
+
+        realm = Realm.getDefaultInstance();
     }
 
-    //Button btnAdd = (Button)findViewById(R.id.Add);
+    public void btnAddClick(View view){
+        Intent startAdd = new Intent(this, AddRecipe.class);
+        startActivity(startAdd);
+    }
 
-    //btnAdd.setOnClickListener(new View.OnClickListener() {*/
-        public void btnAddClick(View view){
-            Intent startAdd = new Intent(this, AddRecipe.class);
-            startActivity(startAdd);
-        }
     //open help screen on Help Button click
     public void openHelpScreen (View view) {
         Intent helpScreenIntent = new Intent(this, HelpScreen.class);
         startActivity(helpScreenIntent);
     }
-
 
     //open Add Recipe screen on Add+ Button click
     public void openAddRecipeScreen (View view) {
@@ -43,13 +47,32 @@ public class MainActivity extends AppCompatActivity {
         startActivity (addRecipeIntent);
     }
 
-
     public void openList(View view){
+
+        realm.beginTransaction();
+
+        recipies = realm.where(Recipe.class).findAll();
+        System.out.println(recipies.toString());
+
+        EditText search = (EditText) findViewById(R.id.RecipeSearch);
+        System.out.println(search.getText().toString());
+
+        int i = 0;
+        tempList = recipies;
+        tempRecipe = tempList.first();
+
+        while(i < recipies.size()){
+
+
+
+            i++;
+        }
+
+
+        realm.commitTransaction();
         Intent startList = new Intent(this , RecipeList.class);
         startActivity(startList);
     }
-
-
 }
 
 

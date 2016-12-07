@@ -71,7 +71,7 @@
             tools:text="(Search a Recipe)"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:hint="(Search a Recipe)" />
+            android:hint="(Enter Ingredients)" />
 
         <TextView
             android:text="Select a Category"
