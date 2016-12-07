@@ -18,6 +18,8 @@ import java.io.InputStream;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class AddMore extends AppCompatActivity {
 
@@ -25,7 +27,7 @@ public class AddMore extends AppCompatActivity {
     public static final int IMG_REQUEST_CAPTURE = 1;
     private ImageView imgSelect;
     Realm realm;
-    RealmConfiguration config;
+    String recipeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +35,19 @@ public class AddMore extends AppCompatActivity {
 
         Realm.init(this);
 
-        config = new RealmConfiguration
-                .Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        realm = Realm.getInstance(config);
+        realm = Realm.getDefaultInstance();
         realm.beginTransaction();
 
         setContentView(R.layout.activity_add_more);
         imgSelect = (ImageView) findViewById(R.id.imgSelect);
+
+        Bundle bundle = getIntent().getExtras();
+        String message = bundle.getString("recipeName");
+        System.out.println(message);
+
+        final RealmResults<Recipe> recipies = realm.where(Recipe.class).findAll();
+        System.out.println(recipies.toString());
+
     }
 
     //called to state intent access to camera on Access Camera Button
@@ -57,10 +63,10 @@ public class AddMore extends AppCompatActivity {
         }
     }
 
+    public void getRecipeName(String name){
+        this.recipeName = name;
+    }
 
-
-    //called when Use Existing Image Button is clicked
-    //access external storage and allows gallery to be opened and looked through
     public void getImageFromGallery (View view) {
 
         //states intent to call to select an item of data and return it

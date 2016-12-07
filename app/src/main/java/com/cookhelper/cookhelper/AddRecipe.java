@@ -32,7 +32,7 @@ public class AddRecipe extends AppCompatActivity {
     private GoogleApiClient client;
     Realm realm;
     Recipe newRecipe;
-    RealmConfiguration config;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +45,15 @@ public class AddRecipe extends AppCompatActivity {
         Realm.init(this);
 
 
-        config = new RealmConfiguration
-                .Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        realm = Realm.getInstance(config);
+        realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-
-        newRecipe = realm.createObject(Recipe.class);
 
         buttonClickListener();
     }
 
     void createRecipe(){
         EditText recipeName = (EditText) findViewById(R.id.recipeName);
-        newRecipe.name = recipeName.getText().toString();
+        newRecipe = realm.createObject(Recipe.class,recipeName.getText().toString());
         Spinner spinner = (Spinner)findViewById(R.id.Categories);
         String cate = spinner.getSelectedItem().toString();
         newRecipe.category = cate;
@@ -80,10 +74,14 @@ public class AddRecipe extends AppCompatActivity {
     }
     public void openAddMore(View view) {
         createRecipe();
+
+
+
+        Intent addMoreScreenIntent;
+        addMoreScreenIntent = new Intent(this, AddMore.class);
+        addMoreScreenIntent.putExtra("recipeName", newRecipe.name);
         realm.commitTransaction();
         realm.close();
-        Intent addMoreScreenIntent = new Intent(this, AddMore.class);
-        addMoreScreenIntent.putExtra("passedRecipe", newRecipe.getName());
         startActivity(addMoreScreenIntent);
     }
 
@@ -100,18 +98,19 @@ public class AddRecipe extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
+                EditText amnt = (EditText) findViewById(R.id.addIngredientsAmount);
 
 
                 FoodItem item = realm.createObject(FoodItem.class);
 
                 item.name = ingredient.getText().toString();
-                item.amount = null;
+                item.amount = amnt.getText().toString();
                 item.recipe = newRecipe;
 
                 final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
                 System.out.println(items.toString());
 
-
+                amnt.setText("");
                 ingredient.setText("");
             }
         });
