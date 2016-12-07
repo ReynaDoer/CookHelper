@@ -75,20 +75,18 @@ public class AddRecipe extends AppCompatActivity {
     public void openAddMore(View view) {
         createRecipe();
 
-
-
         Intent addMoreScreenIntent;
         addMoreScreenIntent = new Intent(this, AddMore.class);
         addMoreScreenIntent.putExtra("recipeName", newRecipe.name);
         realm.commitTransaction();
-        realm.close();
+        //realm.close();
         startActivity(addMoreScreenIntent);
     }
 
     public void openCreated(View view) {
         createRecipe();
         realm.commitTransaction();
-        realm.close();
+        //realm.close();
         Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
         startActivity(createdScreenIntent);
     }

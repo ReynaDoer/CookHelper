@@ -45,7 +45,7 @@ public class AddMore extends AppCompatActivity {
         String message = bundle.getString("recipeName");
         System.out.println(message);
 
-        final RealmResults<Recipe> recipies = realm.where(Recipe.class).findAll();
+        final Recipe recipies = realm.where(Recipe.class).equalTo("name", message).findFirst();
         System.out.println(recipies.toString());
 
     }
