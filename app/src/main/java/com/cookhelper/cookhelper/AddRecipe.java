@@ -46,12 +46,13 @@ public class AddRecipe extends AppCompatActivity {
 
 
         realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
+        //realm.beginTransaction();
 
         buttonClickListener();
     }
 
     void createRecipe(){
+        realm.beginTransaction();
         EditText recipeName = (EditText) findViewById(R.id.recipeName);
         newRecipe = realm.createObject(Recipe.class,recipeName.getText().toString());
         Spinner spinner = (Spinner)findViewById(R.id.Categories);
@@ -64,11 +65,11 @@ public class AddRecipe extends AppCompatActivity {
         String instruct = et.getText().toString();
         newRecipe.instructions = instruct;
         System.out.println(newRecipe.toString());
+        realm.commitTransaction();
     }
 
     @Override
     public void onBackPressed(){
-        realm.commitTransaction();
         realm.close();
         finish();
     }
@@ -78,23 +79,23 @@ public class AddRecipe extends AppCompatActivity {
         Intent addMoreScreenIntent;
         addMoreScreenIntent = new Intent(this, AddMore.class);
         addMoreScreenIntent.putExtra("recipeName", newRecipe.name);
-        realm.commitTransaction();
         //realm.close();
         startActivity(addMoreScreenIntent);
     }
 
     public void openCreated(View view) {
         createRecipe();
-        realm.commitTransaction();
-        //realm.close();
         Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
+        //realm.close();
         startActivity(createdScreenIntent);
     }
 
     public void buttonClickListener(){
+
         Button btn = (Button) findViewById(R.id.btnAddIng);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
+                realm.beginTransaction();
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
                 EditText amnt = (EditText) findViewById(R.id.addIngredientsAmount);
 
