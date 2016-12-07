@@ -15,6 +15,9 @@ public class Recipe extends RealmObject {
     String type;
     String category;
     String instructions;
+    int portionSize;
+    int calories;
+    String notes;
 
     public Recipe(){
     }
@@ -34,5 +37,17 @@ public class Recipe extends RealmObject {
 
     String getInstructions(){
         return  this.instructions;
+    }
+
+    int getPortionSize(){
+        return this.portionSize;
+    }
+
+    int getCalories(){
+        return this.calories;
+    }
+
+    String getNotes(){
+        return this.notes;
     }
 }

@@ -15,15 +15,31 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
+
 public class AddMore extends AppCompatActivity {
 
     public static final int IMG_REQUEST_CODE = 0;
     public static final int IMG_REQUEST_CAPTURE = 1;
     private ImageView imgSelect;
+    Realm realm;
+    RealmConfiguration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Realm.init(this);
+
+        config = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(config);
+        realm.beginTransaction();
+
         setContentView(R.layout.activity_add_more);
         imgSelect = (ImageView) findViewById(R.id.imgSelect);
     }

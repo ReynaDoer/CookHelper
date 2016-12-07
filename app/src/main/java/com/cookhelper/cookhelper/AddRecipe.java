@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.io.Serializable;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -80,6 +83,7 @@ public class AddRecipe extends AppCompatActivity {
         realm.commitTransaction();
         realm.close();
         Intent addMoreScreenIntent = new Intent(this, AddMore.class);
+        addMoreScreenIntent.putExtra("passedRecipe", newRecipe.getName());
         startActivity(addMoreScreenIntent);
     }
 
