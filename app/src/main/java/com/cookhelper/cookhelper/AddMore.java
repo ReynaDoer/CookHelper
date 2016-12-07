@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -28,6 +30,8 @@ public class AddMore extends AppCompatActivity {
     private ImageView imgSelect;
     Realm realm;
     String recipeName;
+    Recipe recipe;
+    Uri imageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class AddMore extends AppCompatActivity {
 
         final Recipe recipies = realm.where(Recipe.class).equalTo("name", message).findFirst();
         System.out.println(recipies.toString());
+        recipe = recipies;
 
         realm.commitTransaction();
 
@@ -98,6 +103,8 @@ public class AddMore extends AppCompatActivity {
 
         if (resultCode == RESULT_OK ) {
 
+            imageData = data.getData();
+
             if (requestCode == IMG_REQUEST_CODE) {
 
                 Uri image = data.getData();
@@ -134,6 +141,29 @@ public class AddMore extends AppCompatActivity {
 
     //open Recipe Created Activity on Save Button click
     public void openRecipeCreated (View view) {
+
+        realm.beginTransaction();
+
+        EditText portionSize = (EditText) findViewById(R.id.editPortionSize);
+        EditText calories = (EditText) findViewById(R.id.editCalories);
+        EditText notes = (EditText) findViewById(R.id.editNotes);
+
+        if (portionSize.getText().toString().trim().length() !=0 ) {
+            recipe.portionSize = Integer.parseInt(portionSize.getText().toString());
+        }
+        if (calories.getText().toString().trim().length() != 0 ) {
+            recipe.calories = Integer.parseInt(calories.getText().toString());
+        }
+        if (notes.getText().toString().trim().length() != 0 ) {
+            recipe.notes = notes.getText().toString();
+        }
+        if (imageData != null ) {
+            recipe.image = imageData.toString();
+        }
+
+        System.out.println(recipe.toString());
+        realm.commitTransaction();
+
         Intent intentRecipeCreated = new Intent(this, RecipeCreated.class) ;
         startActivity(intentRecipeCreated);
     }
