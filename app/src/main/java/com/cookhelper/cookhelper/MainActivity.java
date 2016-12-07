@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity (addRecipeIntent);
     }
 
-    
+
     public void openList(View view){
         Intent startList = new Intent(this , RecipeList.class);
         startActivity(startList);

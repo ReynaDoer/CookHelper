@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -17,6 +17,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class AddRecipe extends AppCompatActivity {
@@ -27,6 +28,8 @@ public class AddRecipe extends AppCompatActivity {
      */
     private GoogleApiClient client;
     Realm realm;
+    Recipe newRecipe;
+    RealmConfiguration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +40,33 @@ public class AddRecipe extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         Realm.init(this);
-        realm = Realm.getDefaultInstance();
+
+
+        config = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        realm = Realm.getInstance(config);
         realm.beginTransaction();
 
+        newRecipe = realm.createObject(Recipe.class);
+
         buttonClickListener();
+    }
+
+    void createRecipe(){
+        EditText recipeName = (EditText) findViewById(R.id.recipeName);
+        newRecipe.name = recipeName.getText().toString();
+        Spinner spinner = (Spinner)findViewById(R.id.Categories);
+        String cate = spinner.getSelectedItem().toString();
+        newRecipe.category = cate;
+        Spinner spinner1 = (Spinner)findViewById(R.id.Types);
+        String ty = spinner1.getSelectedItem().toString();
+        newRecipe.type = ty;
+        EditText et = (EditText) findViewById(R.id.addInstruct);
+        String instruct = et.getText().toString();
+        newRecipe.instructions = instruct;
+        System.out.println(newRecipe.toString());
     }
 
     @Override
@@ -50,6 +76,7 @@ public class AddRecipe extends AppCompatActivity {
         finish();
     }
     public void openAddMore(View view) {
+        createRecipe();
         realm.commitTransaction();
         realm.close();
         Intent addMoreScreenIntent = new Intent(this, AddMore.class);
@@ -57,6 +84,7 @@ public class AddRecipe extends AppCompatActivity {
     }
 
     public void openCreated(View view) {
+        createRecipe();
         realm.commitTransaction();
         realm.close();
         Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
@@ -68,28 +96,19 @@ public class AddRecipe extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
-                EditText ingredientAmount = (EditText) findViewById(R.id.addIngredientsAmount);
+
 
                 FoodItem item = realm.createObject(FoodItem.class);
 
-                if ( ingredient.getText().toString().trim().length() == 0 || ingredientAmount.getText().toString().trim().length() == 0){
-                    Toast.makeText(getApplicationContext(), "PLEASE ENTER AMOUNT AND INGREDIENT",Toast.LENGTH_LONG).show();
-                }
+                item.name = ingredient.getText().toString();
+                item.amount = null;
+                item.recipe = newRecipe;
 
-                else {
-
-                    item.name = ingredient.getText().toString();
-                    item.amount = ingredientAmount.getText().toString();
-
-                    final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
-                    System.out.println(items.toString());
+                final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
+                System.out.println(items.toString());
 
 
-                    ingredient.setText("");
-                    ingredientAmount.setText("");
-                    Toast.makeText(getApplicationContext(), "INGREDIENT ADDED", Toast.LENGTH_SHORT).show();
-
-                }
+                ingredient.setText("");
             }
         });
 

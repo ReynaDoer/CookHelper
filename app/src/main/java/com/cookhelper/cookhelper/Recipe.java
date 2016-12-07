@@ -14,22 +14,25 @@ public class Recipe extends RealmObject {
     String name;
     String type;
     String category;
-
-   //ArrayList<> items;
-
-
-    String directions;
-
+    String instructions;
 
     public Recipe(){
     }
 
-    public Recipe(String name, String type, String category, String directions){
-        this.name = name;
-        this.type = type;
-        this.category = category;
-        this.directions = directions;
-        //this.items = items;
+    String getName(){
+        return this.name;
     }
 
+
+    String getType(){
+        return this.type;
+    }
+
+    String getCategory(){
+        return this.category;
+    }
+
+    String getInstructions(){
+        return  this.instructions;
+    }
 }
