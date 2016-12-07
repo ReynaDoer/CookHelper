@@ -113,10 +113,6 @@
             android:paddingLeft="150dp"
             android:background="@android:drawable/editbox_background_normal" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
         <Button
             android:text="Enter"
             android:layout_width="match_parent"
@@ -125,4 +121,14 @@
             android:onClick="openList" />
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="200dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="51dp" />
 </RelativeLayout>
