@@ -22,6 +22,7 @@ import java.io.Serializable;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.RealmQuery;
 
@@ -34,7 +35,7 @@ public class AddRecipe extends AppCompatActivity {
     private GoogleApiClient client;
     Realm realm;
     Recipe newRecipe;
-
+    RealmList<FoodItem> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class AddRecipe extends AppCompatActivity {
         Realm.init(this);
 
         realm = Realm.getDefaultInstance();
+        tempList = new RealmList<FoodItem>();
         //realm.beginTransaction();
 
 
@@ -75,6 +77,9 @@ public class AddRecipe extends AppCompatActivity {
         else if (instruct.trim().length() != 0){
             newRecipe.instructions = instruct;
         }
+
+        newRecipe.items = tempList;
+
         System.out.println(newRecipe.toString());
         realm.commitTransaction();
     }
@@ -177,18 +182,18 @@ public class AddRecipe extends AppCompatActivity {
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
                 EditText amnt = (EditText) findViewById(R.id.addIngredientsAmount);
 
-
                 FoodItem item = realm.createObject(FoodItem.class);
 
                 item.name = ingredient.getText().toString();
                 item.amount = amnt.getText().toString();
-                item.recipe = newRecipe;
+                tempList.add(item);
 
                 final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
                 System.out.println(items.toString());
 
                 amnt.setText("");
                 ingredient.setText("");
+                realm.commitTransaction();
             }
         });
 

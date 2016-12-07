@@ -3,6 +3,7 @@ package com.cookhelper.cookhelper;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -21,6 +22,7 @@ public class Recipe extends RealmObject {
     int portionSize;
     int calories;
     String notes;
+    RealmList<FoodItem> items;
 
     public Recipe(){
     }
@@ -52,5 +54,9 @@ public class Recipe extends RealmObject {
 
     String getNotes(){
         return this.notes;
+    }
+
+    RealmList<FoodItem> getItems(){
+        return this.items;
     }
 }
