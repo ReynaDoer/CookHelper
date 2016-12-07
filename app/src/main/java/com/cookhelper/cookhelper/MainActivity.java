@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        Realm.deleteRealm(realmConfiguration); // Clean slate
+        Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default*/
     }
 
     //Button btnAdd = (Button)findViewById(R.id.Add);

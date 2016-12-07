@@ -12,9 +12,9 @@ public class FoodItem extends RealmObject{
     String amount;
     Recipe recipe;
 
-    public  FoodItem(){
+//    public  FoodItem(){
 
-    }
+  //  }
 
     Recipe getRecipe(){
         return this.recipe;
