@@ -23,6 +23,7 @@ public class Recipe extends RealmObject {
     int calories;
     String notes;
     RealmList<FoodItem> items;
+    String ingredients;
 
     public Recipe(){
     }

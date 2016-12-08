@@ -36,6 +36,7 @@ public class AddRecipe extends AppCompatActivity {
     Realm realm;
     Recipe newRecipe;
     RealmList<FoodItem> tempList;
+    String tempIngredientsList = "";
     boolean backBeenPressed = false;
 
     @Override
@@ -52,13 +53,10 @@ public class AddRecipe extends AppCompatActivity {
         tempList = new RealmList<FoodItem>();
         //realm.beginTransaction();
 
-        if (backBeenPressed) {
-            System.out.println("back button has been pressed");
-        }
         buttonClickListener();
     }
 
-
+//Creates a new instance of Recipe and fills what exists
     void createRecipe(){
         realm.beginTransaction();
         EditText recipeName = (EditText) findViewById(R.id.recipeName);
@@ -83,11 +81,13 @@ public class AddRecipe extends AppCompatActivity {
         }
 
         newRecipe.items = tempList;
+        newRecipe.ingredients = tempIngredientsList;
 
         System.out.println(newRecipe.toString());
         realm.commitTransaction();
     }
 
+    //updates an instance of recipe based on information in widgets
     void updateRecipe () {
 
         Spinner spinner = (Spinner) findViewById(R.id.Categories);
@@ -109,10 +109,12 @@ public class AddRecipe extends AppCompatActivity {
         }
 
         newRecipe.items = tempList;
+        newRecipe.ingredients = tempIngredientsList;
 
         realm.commitTransaction();
     }
 
+    //On click for back button, closes realm
     @Override
     public void onBackPressed(){
         //realm.commitTransaction();
@@ -185,6 +187,7 @@ public class AddRecipe extends AppCompatActivity {
         }
     }
 
+    //On click for save button - double checks to make sure all mandatory fields are filled
         public void openCreated(View view) {
             EditText recipeName = (EditText) findViewById(R.id.recipeName);
             String recipeNameString = recipeName.getText().toString();
@@ -272,7 +275,7 @@ public class AddRecipe extends AppCompatActivity {
         }
 
 
-
+// on click for add ingredients - adds to a temporary list to be added to recipe
     public void buttonClickListener(){
         Button btn = (Button) findViewById(R.id.btnAddIng);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -287,6 +290,8 @@ public class AddRecipe extends AppCompatActivity {
 
                     realm.beginTransaction();
 
+                    tempIngredientsList = tempIngredientsList + ingredient.getText().toString() + ",";
+
                     FoodItem item = realm.createObject(FoodItem.class);
 
                     item.name = ingredient.getText().toString();
@@ -295,6 +300,7 @@ public class AddRecipe extends AppCompatActivity {
 
                     final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
                     System.out.println(items.toString());
+                    System.out.println(tempIngredientsList);
 
                     amnt.setText("");
                     ingredient.setText("");

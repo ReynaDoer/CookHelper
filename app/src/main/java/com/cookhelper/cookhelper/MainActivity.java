@@ -63,26 +63,13 @@ public class MainActivity extends AppCompatActivity {
         tempList = recipies;
         tempRecipe = tempList.first();
 
-        while(i < recipies.size()){
-
-            tempItems = tempRecipe.items;
-
-            int y = 0;
-
-            tempItem = tempItems.first();
-
-            while(y < tempItems.size()){
-
-                if(searchTxt.contains(tempItem.name)){
-
-                }
-                y++;
-            }
-            i++;
-        }
-
         realm.commitTransaction();
+
+        EditText recipeName = (EditText) findViewById(R.id.RecipeSearch);
+        String text = (String) recipeName.getText().toString();
         Intent startList = new Intent(this , RecipeList.class);
+        startList.putExtra("RecipeSearch" , text );
+
         startActivity(startList);
     }
 }

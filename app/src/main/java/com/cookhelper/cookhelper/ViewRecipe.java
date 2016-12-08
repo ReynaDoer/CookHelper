@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.realm.Realm;
@@ -25,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class ViewRecipe extends AppCompatActivity {
     Realm realm;
@@ -47,6 +50,7 @@ public class ViewRecipe extends AppCompatActivity {
         RealmResults<Recipe> query = realm.where(Recipe.class).equalTo("name", message).findAll();
         recipe = query.first();
 
+        //Fill in the widgets on the View Recipe page
         TextView rName = (TextView) findViewById(R.id.nameOfDish);
 
         rName.setText(recipe.name);
@@ -60,6 +64,10 @@ public class ViewRecipe extends AppCompatActivity {
         EditText rInfo = (EditText) findViewById(R.id.listInfo);
         rInfo.setText(recipe.category  + "\n" + recipe.type + "\n" + recipe.portionSize + "\n" + recipe.calories + "\n" + recipe.notes);
         //System.out.println(query.toString());
+
+        ImageView imgView = (ImageView) findViewById(R.id.imgViewRecipe);
+        Bitmap bitmapImage= BitmapFactory.decodeByteArray(recipe.image, 0, recipe.image.length);
+        imgView.setImageBitmap(bitmapImage);
 
 
         realm.commitTransaction();

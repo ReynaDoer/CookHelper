@@ -43,6 +43,7 @@ public class AddMore extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
 
+        //finds the recipe to be edited
         setContentView(R.layout.activity_add_more);
         imgSelect = (ImageView) findViewById(R.id.imgSelect);
 
@@ -56,6 +57,7 @@ public class AddMore extends AppCompatActivity {
 
         realm.commitTransaction();
 
+        //fills any existing intformation into the appropriate widgets
         if (recipe.image != null) {
             Bitmap bitmapImage= BitmapFactory.decodeByteArray(recipe.image, 0, recipe.image.length);
             imgSelect.setImageBitmap(bitmapImage);
@@ -76,6 +78,8 @@ public class AddMore extends AppCompatActivity {
         }
 
     }
+
+    //on click for back button, saves any changes to recipe and closes activity
     @Override
     public void onBackPressed(){
 
@@ -121,11 +125,7 @@ public class AddMore extends AppCompatActivity {
         }
     }
 
-    public void getRecipeName(String name){
-        this.recipeName = name;
-    }
-
-
+//calles to state intent to access gallery and request access and a returned file
     public void getImageFromGallery (View view) {
 
         //states intent to call to select an item of data and return it
@@ -142,7 +142,7 @@ public class AddMore extends AppCompatActivity {
 
     }
 
-    //Takes selected image from gallery and decodes it to use in CookHelper
+    //Takes selected image from gallery or camera and decodes it to use in CookHelper
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,7 +185,7 @@ public class AddMore extends AppCompatActivity {
 
     }
 
-    //open Recipe Created Activity on Save Button click
+    //open Recipe Created Activity on Save Button click - checks to make sure all manditory information is added
     public void openRecipeCreated (View view) {
 
         if (recipe.category == null){
