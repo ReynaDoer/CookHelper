@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 
 import io.realm.Realm;
@@ -31,7 +32,7 @@ public class AddMore extends AppCompatActivity {
     Realm realm;
     String recipeName;
     Recipe recipe;
-    Uri imageData;
+    Bitmap imageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +56,54 @@ public class AddMore extends AppCompatActivity {
 
         realm.commitTransaction();
 
+        if (recipe.image != null) {
+            Bitmap bitmapImage= BitmapFactory.decodeByteArray(recipe.image, 0, recipe.image.length);
+            imgSelect.setImageBitmap(bitmapImage);
+        }
+        if (recipe.portionSize >0 ) {
+            EditText portionSize = (EditText) findViewById(R.id.editPortionSize);
+            String number = Integer.toString(recipe.getPortionSize());
+            portionSize.setText(number);
+        }
+        if (recipe.calories >0) {
+            EditText calories = (EditText) findViewById(R.id.editCalories);
+            String number1 = Integer.toString(recipe.getCalories());
+            calories.setText(number1);
+        }
+        if (recipe.notes != null){
+            EditText notes = (EditText) findViewById(R.id.editNotes);
+            notes.setText(recipe.getNotes());
+        }
+
     }
     @Override
     public void onBackPressed(){
-        //realm.commitTransaction();
+
+        realm.beginTransaction();
+
+        EditText portionSize = (EditText) findViewById(R.id.editPortionSize);
+        EditText calories = (EditText) findViewById(R.id.editCalories);
+        EditText notes = (EditText) findViewById(R.id.editNotes);
+
+        if (portionSize.getText().toString().trim().length() !=0 ) {
+            recipe.portionSize = Integer.parseInt(portionSize.getText().toString());
+        }
+        if (calories.getText().toString().trim().length() != 0 ) {
+            recipe.calories = Integer.parseInt(calories.getText().toString());
+        }
+        if (notes.getText().toString().trim().length() != 0 ) {
+            recipe.notes = notes.getText().toString();
+        }
+        if (imageData != null ) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageData.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] imageByte = stream.toByteArray();
+            recipe.image = imageByte;
+        }
+
+        System.out.println(recipe.toString());
+        realm.commitTransaction();
+
         realm.close();
         finish();
     }
@@ -79,6 +124,7 @@ public class AddMore extends AppCompatActivity {
     public void getRecipeName(String name){
         this.recipeName = name;
     }
+
 
     public void getImageFromGallery (View view) {
 
@@ -103,8 +149,6 @@ public class AddMore extends AppCompatActivity {
 
         if (resultCode == RESULT_OK ) {
 
-            imageData = data.getData();
-
             if (requestCode == IMG_REQUEST_CODE) {
 
                 Uri image = data.getData();
@@ -113,6 +157,7 @@ public class AddMore extends AppCompatActivity {
                     InputStream imageStream = getContentResolver().openInputStream(image);
 
                     Bitmap bitmapImage = BitmapFactory.decodeStream(imageStream);
+                    imageData = bitmapImage;
 
                     imgSelect.setImageBitmap(bitmapImage);
 
@@ -132,6 +177,7 @@ public class AddMore extends AppCompatActivity {
 
                 Bundle extras = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) extras.get("data");
+                imageData = bitmapImage;
                 imgSelect.setImageBitmap(bitmapImage);
             }
 
@@ -142,29 +188,48 @@ public class AddMore extends AppCompatActivity {
     //open Recipe Created Activity on Save Button click
     public void openRecipeCreated (View view) {
 
-        realm.beginTransaction();
-
-        EditText portionSize = (EditText) findViewById(R.id.editPortionSize);
-        EditText calories = (EditText) findViewById(R.id.editCalories);
-        EditText notes = (EditText) findViewById(R.id.editNotes);
-
-        if (portionSize.getText().toString().trim().length() !=0 ) {
-            recipe.portionSize = Integer.parseInt(portionSize.getText().toString());
+        if (recipe.category == null){
+            Toast.makeText(this, "Select A Category", Toast.LENGTH_LONG).show();
         }
-        if (calories.getText().toString().trim().length() != 0 ) {
-            recipe.calories = Integer.parseInt(calories.getText().toString());
+        else if (recipe.type == null){
+            Toast.makeText(this, "Select A Type", Toast.LENGTH_LONG).show();
         }
-        if (notes.getText().toString().trim().length() != 0 ) {
-            recipe.notes = notes.getText().toString();
+        else if (recipe.instructions == null){
+            Toast.makeText(this, "Enter Instructions", Toast.LENGTH_LONG).show();
         }
-        if (imageData != null ) {
-            recipe.image = imageData.toString();
+        else if (recipe.items.size() == 0){
+            Toast.makeText(this, "Enter an Ingredient", Toast.LENGTH_LONG).show();
+        }
+        else {
+            realm.beginTransaction();
+            EditText portionSize = (EditText) findViewById(R.id.editPortionSize);
+            EditText calories = (EditText) findViewById(R.id.editCalories);
+            EditText notes = (EditText) findViewById(R.id.editNotes);
+
+            if (portionSize.getText().toString().trim().length() !=0 ) {
+                recipe.portionSize = Integer.parseInt(portionSize.getText().toString());
+            }
+            if (calories.getText().toString().trim().length() != 0 ) {
+                recipe.calories = Integer.parseInt(calories.getText().toString());
+            }
+            if (notes.getText().toString().trim().length() != 0 ) {
+                recipe.notes = notes.getText().toString();
+            }
+            if (imageData != null ) {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageData.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] imageByte = stream.toByteArray();
+                recipe.image = imageByte;
+            }
+
+            System.out.println(recipe.toString());
+            realm.commitTransaction();
+
+            Intent intentRecipeCreated = new Intent(this, RecipeCreated.class) ;
+            startActivity(intentRecipeCreated);
         }
 
-        System.out.println(recipe.toString());
-        realm.commitTransaction();
 
-        Intent intentRecipeCreated = new Intent(this, RecipeCreated.class) ;
-        startActivity(intentRecipeCreated);
+
     }
 }

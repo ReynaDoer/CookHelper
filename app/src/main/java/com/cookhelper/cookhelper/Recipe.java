@@ -18,7 +18,7 @@ public class Recipe extends RealmObject {
     String type;
     String category;
     String instructions;
-    String image;
+    byte[] image;
     int portionSize;
     int calories;
     String notes;

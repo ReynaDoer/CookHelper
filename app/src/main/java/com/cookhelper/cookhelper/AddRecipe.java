@@ -36,6 +36,7 @@ public class AddRecipe extends AppCompatActivity {
     Realm realm;
     Recipe newRecipe;
     RealmList<FoodItem> tempList;
+    boolean backBeenPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +52,12 @@ public class AddRecipe extends AppCompatActivity {
         tempList = new RealmList<FoodItem>();
         //realm.beginTransaction();
 
-
+        if (backBeenPressed) {
+            System.out.println("back button has been pressed");
+        }
         buttonClickListener();
     }
+
 
     void createRecipe(){
         realm.beginTransaction();
@@ -71,10 +75,10 @@ public class AddRecipe extends AppCompatActivity {
         if (!cate.equals("Any")){
             newRecipe.category = cate;
         }
-        else if (!ty.equals("Any")){
+        if (!ty.equals("Any")){
             newRecipe.type = ty;
         }
-        else if (instruct.trim().length() != 0){
+        if (instruct.trim().length() != 0){
             newRecipe.instructions = instruct;
         }
 
@@ -84,116 +88,219 @@ public class AddRecipe extends AppCompatActivity {
         realm.commitTransaction();
     }
 
+    void updateRecipe () {
+
+        Spinner spinner = (Spinner) findViewById(R.id.Categories);
+        String cate = spinner.getSelectedItem().toString();
+        Spinner spinner1 = (Spinner) findViewById(R.id.Types);
+        String ty = spinner1.getSelectedItem().toString();
+        EditText et = (EditText) findViewById(R.id.addInstruct);
+        String instruct = et.getText().toString();
+
+        realm.beginTransaction();
+        if (!cate.equals("Any")) {
+            newRecipe.category = cate;
+        }
+        if (!ty.equals("Any")) {
+            newRecipe.type = ty;
+        }
+        if (instruct.trim().length() != 0) {
+            newRecipe.instructions = instruct;
+        }
+
+        newRecipe.items = tempList;
+
+        realm.commitTransaction();
+    }
+
     @Override
     public void onBackPressed(){
         //realm.commitTransaction();
         realm.close();
         finish();
     }
+
+    //On click method for Add More Button
     public void openAddMore(View view) {
         EditText recipeName = (EditText) findViewById(R.id.recipeName);
         String recipeNameString = recipeName.getText().toString();
 
-        //checks if recipe name is entered
-        if (recipeName.getText().toString().trim().length() == 0) {
-            Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
-        }
+        //checks if AddMore has been called before
+        if (backBeenPressed) {
+            //check whether recipe title is empty
+            if (recipeName.getText().toString().trim().length() == 0) {
+                Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
+            } else {
+                //searches for recipe we're editing
+                final Recipe recipies = realm.where(Recipe.class).equalTo("name", recipeNameString).findFirst();
+                System.out.println(recipies.toString());
+                newRecipe = recipies;
 
-        //recipe name is entered
-        else {
+                updateRecipe();
 
-            //checks if recipe name already exists
-            RealmQuery<Recipe> query = realm.where(Recipe.class);
-            query.equalTo("name", recipeNameString );
-            RealmResults<Recipe> result = query.findAll();
-
-            //recipe does not already exist
-            if (result.size() == 0) {
-
-                createRecipe();
                 Intent addMoreScreenIntent;
                 addMoreScreenIntent = new Intent(this, AddMore.class);
                 addMoreScreenIntent.putExtra("recipeName", newRecipe.name);
                 //realm.commitTransaction();
                 //realm.close();
                 startActivity(addMoreScreenIntent);
-
-            }
-            //recipe already exists
-            else {
-                Toast.makeText(this, "This Recipe Name already Exists", Toast.LENGTH_LONG).show();
             }
 
         }
+        //First time AddRecipe has been called; AddMore back button has not been called
+        else {
+            //checks if recipe name is entered
+            if (recipeName.getText().toString().trim().length() == 0) {
+                Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
+            }
 
+            //recipe name is entered
+            else {
+
+                //checks if recipe name already exists
+                RealmQuery<Recipe> query = realm.where(Recipe.class);
+                query.equalTo("name", recipeNameString);
+                RealmResults<Recipe> result = query.findAll();
+
+                //recipe does not already exist
+                if (result.size() == 0) {
+
+                    createRecipe();
+                    Intent addMoreScreenIntent;
+                    addMoreScreenIntent = new Intent(this, AddMore.class);
+                    addMoreScreenIntent.putExtra("recipeName", newRecipe.name);
+                    //realm.commitTransaction();
+                    //realm.close();
+                    backBeenPressed = true;
+                    startActivity(addMoreScreenIntent);
+
+                }
+                //recipe already exists
+                else {
+                    Toast.makeText(this, "This Recipe Name already Exists", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+        }
     }
 
-    public void openCreated(View view) {
-        EditText recipeName = (EditText) findViewById(R.id.recipeName);
-        String recipeNameString = recipeName.getText().toString();
+        public void openCreated(View view) {
+            EditText recipeName = (EditText) findViewById(R.id.recipeName);
+            String recipeNameString = recipeName.getText().toString();
 
-        Spinner spinner = (Spinner)findViewById(R.id.Categories);
-        Spinner spinner1 = (Spinner)findViewById(R.id.Types);
-        EditText et = (EditText) findViewById(R.id.addInstruct);
+            Spinner spinner = (Spinner)findViewById(R.id.Categories);
+            Spinner spinner1 = (Spinner)findViewById(R.id.Types);
+            EditText et = (EditText) findViewById(R.id.addInstruct);
 
-        //checks if recipe name is not entered
-        if (recipeName.getText().toString().trim().length() == 0) {
-            Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
-        }
+            if (backBeenPressed) {
 
-        else {
-
-            //checks if recipe already exists
-            RealmQuery<Recipe> query = realm.where(Recipe.class);
-            query.equalTo("name", recipeNameString);
-            RealmResults<Recipe> result = query.findAll();
-
-            if (result.size() == 0) {
-
-                if (spinner.getSelectedItem().toString().equals("Any")){
-                    Toast.makeText(this, "Select A Category", Toast.LENGTH_LONG).show();
-                }
-                else if (spinner1.getSelectedItem().toString().equals("Any")){
-                    Toast.makeText(this, "Select A Type", Toast.LENGTH_LONG).show();
-                }
-                else if (et.getText().toString().trim().length() == 0){
-                    Toast.makeText(this, "Enter Instructions", Toast.LENGTH_LONG).show();
+                //check whether recipe title is empty
+                if (recipeName.getText().toString().trim().length() == 0) {
+                    Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    createRecipe();
-                    //realm.commitTransaction();
-                    realm.close();
-                    Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
-                    startActivity(createdScreenIntent);
+                    //searches for recipe we're editing
+                    final Recipe recipies = realm.where(Recipe.class).equalTo("name", recipeNameString).findFirst();
+                    System.out.println(recipies.toString());
+                    newRecipe = recipies;
+
+                    if (spinner.getSelectedItem().toString().equals("Any")){
+                        Toast.makeText(this, "Select A Category", Toast.LENGTH_LONG).show();
+                    }
+                    else if (spinner1.getSelectedItem().toString().equals("Any")){
+                        Toast.makeText(this, "Select A Type", Toast.LENGTH_LONG).show();
+                    }
+                    else if (et.getText().toString().trim().length() == 0){
+                        Toast.makeText(this, "Enter Instructions", Toast.LENGTH_LONG).show();
+                    }
+                    else if (tempList.size() == 0){
+                        Toast.makeText(this, "Enter an Ingredient", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        updateRecipe();
+
+                        realm.close();
+                        Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
+                        startActivity(createdScreenIntent);
+                    }
                 }
             }
+            //Add More Has not been called
             else {
-                Toast.makeText(this, "This Recipe Name already Exists", Toast.LENGTH_LONG).show();
+
+                //checks if recipe name is not entered
+                if (recipeName.getText().toString().trim().length() == 0) {
+                    Toast.makeText(this, "Enter Recipe Name", Toast.LENGTH_LONG).show();
+                }
+
+                else {
+
+                    //checks if recipe already exists
+                    RealmQuery<Recipe> query = realm.where(Recipe.class);
+                    query.equalTo("name", recipeNameString);
+                    RealmResults<Recipe> result = query.findAll();
+
+                    if (result.size() == 0) {
+
+                        if (spinner.getSelectedItem().toString().equals("Any")){
+                            Toast.makeText(this, "Select A Category", Toast.LENGTH_LONG).show();
+                        }
+                        else if (spinner1.getSelectedItem().toString().equals("Any")){
+                            Toast.makeText(this, "Select A Type", Toast.LENGTH_LONG).show();
+                        }
+                        else if (et.getText().toString().trim().length() == 0){
+                            Toast.makeText(this, "Enter Instructions", Toast.LENGTH_LONG).show();
+                        }
+                        else if (tempList.size() == 0){
+                            Toast.makeText(this, "Enter an Ingredient", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            createRecipe();
+                            realm.close();
+                            Intent createdScreenIntent = new Intent(this, RecipeCreated.class);
+                            startActivity(createdScreenIntent);
+                        }
+                    }
+                    else {
+                        Toast.makeText(this, "This Recipe Name already Exists", Toast.LENGTH_LONG).show();
+                    }
+                }
+
             }
+
         }
 
-    }
+
 
     public void buttonClickListener(){
         Button btn = (Button) findViewById(R.id.btnAddIng);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                realm.beginTransaction();
                 EditText ingredient = (EditText) findViewById(R.id.addIngredients);
                 EditText amnt = (EditText) findViewById(R.id.addIngredientsAmount);
 
-                FoodItem item = realm.createObject(FoodItem.class);
+                if (amnt.getText().toString().trim().length() ==0 || ingredient.getText().toString().trim().length() == 0){
+                    Toast.makeText(getApplicationContext(), "Enter an Amount and an Ingredient", Toast.LENGTH_LONG).show();
+                }
+                else {
 
-                item.name = ingredient.getText().toString();
-                item.amount = amnt.getText().toString();
-                tempList.add(item);
+                    realm.beginTransaction();
 
-                final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
-                System.out.println(items.toString());
+                    FoodItem item = realm.createObject(FoodItem.class);
 
-                amnt.setText("");
-                ingredient.setText("");
-                realm.commitTransaction();
+                    item.name = ingredient.getText().toString();
+                    item.amount = amnt.getText().toString();
+                    tempList.add(item);
+
+                    final RealmResults<FoodItem> items = realm.where(FoodItem.class).findAll();
+                    System.out.println(items.toString());
+
+                    amnt.setText("");
+                    ingredient.setText("");
+                    realm.commitTransaction();
+
+                }
             }
         });
 
