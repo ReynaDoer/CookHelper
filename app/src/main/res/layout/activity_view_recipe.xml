@@ -62,11 +62,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/listDirections"
                 android:enabled="false"
-                android:editable="false" />
+                android:editable="false"
+                android:inputType="textMultiLine" />
 
             <TextView
                 android:text="More Info"
@@ -79,7 +79,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/listInfo"
                 android:enabled="false"

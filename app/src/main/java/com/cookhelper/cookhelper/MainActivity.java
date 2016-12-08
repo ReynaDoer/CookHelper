@@ -63,27 +63,9 @@ public class MainActivity extends AppCompatActivity {
         tempList = recipies;
         tempRecipe = tempList.first();
 
-        while(i < recipies.size()){
 
-            tempItems = tempRecipe.items;
 
-            int y = 0;
 
-            tempItem = tempItems.first();
-
-            while(y < tempItems.size()){
-
-                if(searchTxt.contains(tempItem.name)){
-
-                }
-                y++;
-            }
-            i++;
-        }
-
-        realm.commitTransaction();
-        Intent startList = new Intent(this , RecipeList.class);
-        startActivity(startList);
     }
 }
 
