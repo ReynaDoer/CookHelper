@@ -1,6 +1,8 @@
 package com.cookhelper.cookhelper;
 
 import android.content.Context;
+
+import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -26,7 +28,15 @@ public class TeamArrayAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.recipe_list_layout, parent, false);
-        Button recipe = (Button) rowView.findViewById(R.id.button);
+        final Button recipe = (Button) rowView.findViewById(R.id.button);
+        recipe.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //System.out.println(recipe.getText().toString());
+                Intent createdScreenIntent = new Intent(v.getContext(), ViewRecipe.class);
+                createdScreenIntent.putExtra("name",recipe.getText().toString());
+                v.getContext().startActivity(createdScreenIntent);
+            }
+        });
         ImageView image = (ImageView) rowView.findViewById(R.id.imageView);
         recipe.setText(values[position]);
         if(images[position]!=null) {
@@ -35,7 +45,7 @@ public class TeamArrayAdapter extends ArrayAdapter {
             }
 
         ;
-// Change the icon for Windows and iPhone
+// Change the icon for Windows
         String s = values[position];
         /*
         if (s == null || s.isEmpty() || s.equals("empty")) {
