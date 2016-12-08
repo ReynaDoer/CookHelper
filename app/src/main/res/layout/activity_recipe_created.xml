@@ -54,7 +54,7 @@
             tools:text="Back to Home"
             android:layout_height="0dp"
             android:layout_weight="17"
-            android:onClick="openHome" />
+            android:onClick="openHome (RecipeCreated)" />
 
         <Button
             android:id="@+id/btnRecipe"

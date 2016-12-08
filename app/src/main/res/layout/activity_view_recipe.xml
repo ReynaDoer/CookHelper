@@ -96,7 +96,8 @@
                 android:text="Delete Recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnDeleteRecipe" />
+                android:id="@+id/btnDeleteRecipe"
+                android:onClick="onClickDeleteRecipe" />
 
         </LinearLayout>
     </ScrollView>
