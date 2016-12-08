@@ -9,20 +9,40 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+
+
 public class RecipeList extends AppCompatActivity {
+
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         // Get ListView object from xml layout
         ListView listView = (ListView) findViewById(R.id.list);
+        RealmResults<Recipe> results = realm.where(Recipe.class).findAll();
+        String[] values = new String[results.size()];
+        for(int i =0 ; i<results.size() ; i++){
+            values[i] = results.get(i).getName();
+        }
+
+        realm.commitTransaction();
+
+
+
 //Defining Array values to show in ListView
-        String[] values = new String[] {
+      /*  String[] values = new String[] {
                 "Item","Item 02","Item 03","Item 04","Item 05","Item 06","Item 07","Item 08","item 09", "item 10", "item 11"
         };
-        Icon[] images = new Icon[values.length]  ;
+*/        Icon[] images = new Icon[values.length]  ;
 //Converting Array to ArrayList
         final ArrayList<String> list = new ArrayList<String>();
         final ArrayList<Icon> listIm = new ArrayList<Icon>();

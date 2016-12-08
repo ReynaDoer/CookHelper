@@ -71,10 +71,10 @@ public class AddRecipe extends AppCompatActivity {
         if (!cate.equals("Any")){
             newRecipe.category = cate;
         }
-        else if (!ty.equals("Any")){
+        if (!ty.equals("Any")){
             newRecipe.type = ty;
         }
-        else if (instruct.trim().length() != 0){
+        if (instruct.trim().length() != 0){
             newRecipe.instructions = instruct;
         }
 

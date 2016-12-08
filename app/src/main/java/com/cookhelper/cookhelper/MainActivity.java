@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     RealmResults<Recipe> tempList;
     Recipe tempRecipe;
     RealmList<FoodItem> tempItems;
+    FoodItem tempItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText search = (EditText) findViewById(R.id.RecipeSearch);
         System.out.println(search.getText().toString());
+        String searchTxt = search.getText().toString();
 
         int i = 0;
         tempList = recipies;
@@ -63,11 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
         while(i < recipies.size()){
 
+            tempItems = tempRecipe.items;
 
+            int y = 0;
 
+            tempItem = tempItems.first();
+
+            while(y < tempItems.size()){
+
+                if(searchTxt.contains(tempItem.name)){
+
+                }
+                y++;
+            }
             i++;
         }
-
 
         realm.commitTransaction();
         Intent startList = new Intent(this , RecipeList.class);
