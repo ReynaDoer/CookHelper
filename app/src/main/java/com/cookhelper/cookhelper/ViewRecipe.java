@@ -32,6 +32,7 @@ import android.graphics.BitmapFactory;
 public class ViewRecipe extends AppCompatActivity {
     Realm realm;
     Recipe recipe;
+    String recName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,10 @@ public class ViewRecipe extends AppCompatActivity {
         realm.beginTransaction();
 
         Bundle bundle = getIntent().getExtras();
-        String message = bundle.getString("name");
-        //System.out.println(message);
+        this.recName = bundle.getString("name");
 
-        RealmResults<Recipe> query = realm.where(Recipe.class).equalTo("name", message).findAll();
+
+        RealmResults<Recipe> query = realm.where(Recipe.class).equalTo("name", recName).findAll();
         recipe = query.first();
 
         //Fill in the widgets on the View Recipe page
@@ -56,13 +57,28 @@ public class ViewRecipe extends AppCompatActivity {
         rName.setText(recipe.name);
 
         EditText rIng = (EditText) findViewById(R.id.listIng);
-        rIng.setText(recipe.items.toString());
+
+        String s = "";
+        FoodItem temp = recipe.items.first();
+        int i = 0;
+        while(i < recipe.items.size()){
+            temp = recipe.items.get(i);
+            s = s + temp.name + " : " + temp.amount + "\n";
+            i++;
+        }
+        rIng.setText(s);
+
+
 
         EditText rDir = (EditText) findViewById(R.id.listDirections);
         rDir.setText(recipe.instructions);
 
         EditText rInfo = (EditText) findViewById(R.id.listInfo);
-        rInfo.setText(recipe.category  + "\n" + recipe.type + "\n" + recipe.portionSize + "\n" + recipe.calories + "\n" + recipe.notes);
+        rInfo.setText("category : " + recipe.category  + "\n" +
+                "type : " + recipe.type + "\n" +
+                "portion size : " + recipe.portionSize + "\n" +
+                "calories : " + recipe.calories + "\n" +
+                "notes : " + recipe.notes);
         //System.out.println(query.toString());
 
         ImageView imgView = (ImageView) findViewById(R.id.imgViewRecipe);
@@ -78,7 +94,7 @@ public class ViewRecipe extends AppCompatActivity {
 
         //Name of the recipe that we are interested in deleting
         //Needs to come from search result page
-        String recipeName="";
+        String recipeName = recName;
         Realm realm = Realm.getDefaultInstance(); // Create a new realm instance
 
         // Build the query looking at all recipes:
@@ -104,10 +120,10 @@ public class ViewRecipe extends AppCompatActivity {
             }
         });
 
-        Intent searchIntent = new Intent(this, RecipeList.class);
+        Intent searchIntent = new Intent(this, MainActivity.class);
         startActivity(searchIntent);
-
-
     }
+
+
 
 }
